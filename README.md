@@ -23,19 +23,37 @@ Create a new branch by your name
 git checkout -b new_branch
 ```
 
-### Using docker
+### Using docker [Optional]
 
 Make sure you have [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed on your machine.
 Then run following command in your terminal to build and start the docker container
 
+```sh
     docker-compose  up -d --build
+```
 
-#### Database credentials
+#### Set environment variables
 
-| key      | value             |
-| -------- | ----------------- |
-| port     | 5432              |
-| host     | node_ecommerce_db |
-| name     | ecommerce         |
-| user     | root              |
-| password | root              |
+Copy `.env.example` to `.env` in **MacOS** or **Linux**
+
+```
+cp .env.example .env
+```
+
+In **Windows**
+
+```
+copy .env.example .env
+```
+
+And set the following fields in your `.env` according to your configurations
+
+| key           | value             |
+| ------------- | ----------------- |
+| `PORT`        | `3000`            |
+| `DB_PORT`     | `5432`            |
+| `DB_HOST`     | `your_host`       |
+| `DB_NAME`     | `your_db_name`    |
+| `DB_USER`     | `your_user_name`  |
+| `DB_PASSWORD` | `your_password`   |
+| `SECRET_KEY`  | `your_secret_key` |
