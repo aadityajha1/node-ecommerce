@@ -4,6 +4,7 @@ const express = require("express");
 const sequelize = require("./db");
 const app = express();
 require("dotenv").config();
+const Router = require("./routes/index");
 
 const PORT = process.env.PORT | 3000;
 
@@ -11,9 +12,7 @@ const PORT = process.env.PORT | 3000;
 app.use(express.json());
 
 // Routers
-app.get("/foo", (req, res) => {
-  res.json("bar");
-});
+app.use(Router);
 
 sequelize
   .sync({ force: false })
