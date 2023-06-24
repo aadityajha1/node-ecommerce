@@ -3,15 +3,16 @@
 const express = require("express");
 const sequelize = require("./db");
 const app = express();
+require("dotenv").config();
 
-const PORT = 8000;
+const PORT = process.env.PORT | 3000;
 
 // Middlewares
 app.use(express.json());
 
 // Routers
-app.get("/api/foo", (req, res) => {
-  res.send("bar");
+app.get("/foo", (req, res) => {
+  res.json("bar");
 });
 
 sequelize
