@@ -13,7 +13,7 @@ exports.getUsers = async (req, res) =>
         {
             users = await User.findAll(
                 {
-                    attributes: ['id', 'name', 'email', 'role'],
+                    attributes: ['id', 'name', 'email', 'role','avatar'],
                 },
             );
         }
@@ -80,5 +80,50 @@ exports.updateUsers = async (req, res) =>
     }
 }
 
+exports.deleteUsers = async (req , res) =>{
+    try {
+        const email = req.query.email
+        const user = await User.findOne({ where : {email}}) 
+        if(!user){
+            res 
+                .status(400)
+                .send('No such email found')
+                return
+        }
+        await user.destroy()
+        res
+            .status(200)
+            .send('User deleted')
+    } 
+    catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+}
 
-
+exports.uploadProfilePicture = async(req , res) =>{
+    try {
+        const photo = req.file.filename;
+        const email = req.query.email;
+        const updatedRows = await User.update(
+            {avatar : photo},
+            {
+                where: {
+                    email
+                }
+            }
+        );
+        if(!updatedRows){
+            res
+                .status(400)
+                .send("No user found")
+                return
+        } 
+        res
+            .status(200)
+            .send("Photo Updated") 
+    } 
+    catch (error) {
+        
+    }
+}
